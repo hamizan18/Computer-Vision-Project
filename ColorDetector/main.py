@@ -31,17 +31,19 @@ while True:
     greenPixels = cv2.countNonZero(maskGreen)
     redPixels = cv2.countNonZero(redMask)
     
-    if redPixels > 500:
-        cv2.putText(
-            frame, # Frame tujuan
-            "MiRAHH Lebih KEDETECT", # Teks yang munculs
-            (20, 50), # Posisi Teks (x, y)
-            cv2.FONT_HERSHEY_COMPLEX, # Font
-            1, # Ukuran
-            (0, 0, 255), # Warna Font
-            2 # Ketebalan
-        ) 
-    elif greenPixels > 500:
+    if redPixels > 500 or greenPixels > 500:
+        
+        if redPixels > greenPixels: # kalo beda cukup jauh baru ganti state
+            cv2.putText(
+                frame, # Frame tujuan
+                "MiRAHH Lebih KEDETECT", # Teks yang munculs
+                (20, 50), # Posisi Teks (x, y)
+                cv2.FONT_HERSHEY_COMPLEX, # Font
+                1, # Ukuran
+                (0, 0, 255), # Warna Font
+                2 # Ketebalan
+            ) 
+    elif greenPixels > redPixels:
         cv2.putText(
             frame,
             "iJOO Lebih KEDETECT",
@@ -54,7 +56,7 @@ while True:
     
     cv2.imshow("MIJAAN VISION", frame)
     
-    if cv2.waitKey(1) == 27:
+    if cv2.waitKey(1) == ord('q'):
         break
 
 camera.release()
