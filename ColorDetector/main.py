@@ -17,9 +17,9 @@ while True:
     if not success:
         break
     
-    frame = cv2.flip(frame, 1)
+    frame = cv2.flip(frame, 1) # biar ga mirror
     
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV) # convert jadi color HSV dari BGR
     
     maskGreen = cv2.inRange(hsv, lowerGreen, upperGreen)
     maskRed1 = cv2.inRange(hsv, lowerRed1, upperRed1)
@@ -28,12 +28,12 @@ while True:
     
     cv2.imshow("Mask Red", redMask)
     cv2.imshow("Mask Green", maskGreen)
-    greenPixels = cv2.countNonZero(maskGreen)
-    redPixels = cv2.countNonZero(redMask)
+    greenPixels = cv2.countNonZero(maskGreen) # hitung pixel putih dari warna ijo
+    redPixels = cv2.countNonZero(redMask) # hitung pixel putih dari warna merah
     
     if redPixels > 500 or greenPixels > 500:
         
-        if redPixels > greenPixels: # kalo beda cukup jauh baru ganti state
+        if redPixels > greenPixels + 500: # kalo beda cukup jauh baru ganti state
             cv2.putText(
                 frame, # Frame tujuan
                 "MiRAHH Lebih KEDETECT", # Teks yang munculs
@@ -43,16 +43,16 @@ while True:
                 (0, 0, 255), # Warna Font
                 2 # Ketebalan
             ) 
-    elif greenPixels > redPixels:
-        cv2.putText(
-            frame,
-            "iJOO Lebih KEDETECT",
-            (20, 50),
-            cv2.FONT_HERSHEY_COMPLEX,
-            1,
-            (0, 255, 0),
-            2
-        )
+        elif greenPixels > redPixels + 500:
+            cv2.putText(
+                frame,
+                "iJOO Lebih KEDETECT",
+                (20, 50),
+                cv2.FONT_HERSHEY_COMPLEX,
+                1,
+                (0, 255, 0),
+                2
+            )
     
     cv2.imshow("MIJAAN VISION", frame)
     
