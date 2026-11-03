@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-url = "http://154.14.224.165:8080/video"
+url = "http://10.8.229.231:8080/video"
 
 cap = cv2.VideoCapture(url)
 a=0
